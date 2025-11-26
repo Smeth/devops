@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  create-checkout:
 
     runs-on: ubuntu-latest
 
@@ -32,3 +32,15 @@ jobs:
     - name: Build with Maven
       run: mvn "-Dmaven.test.skip=true" -B package --file pom.xml
 
+  ssh-commands:
+      name: SSH Commands
+      runs-on: ubuntu-latest
+      steps:
+        - name: Execute remote SSH commands using password
+          uses: appleboy/ssh-action@v1
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: ${{ secrets.PORT }}
+            script: whoami
