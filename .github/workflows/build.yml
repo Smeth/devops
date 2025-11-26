@@ -36,11 +36,13 @@ jobs:
       name: SSH Commands
       runs-on: ubuntu-latest
       steps:
-        - name: Execute remote SSH commands using password
+        - name: Run commands on EC2 via SSH
           uses: appleboy/ssh-action@v1
           with:
             host: ${{ secrets.HOST }}
-            username: ${{ secrets.USER }}
+            username: ubuntu
             key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: ${{ secrets.PORT }}
-            script: whoami
+            port: 22
+            script: |
+              whoami
+              echo "Connexion OK"
