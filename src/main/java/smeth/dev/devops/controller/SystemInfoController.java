@@ -17,7 +17,7 @@ public class SystemInfoController {
     public Map<String, String> getDefaultMessage() {
         Map<String, String> message = new HashMap<>();
         message.put("message", "Bienvenue sur l'API DevOps !");
-        message.put("endpoints", "/api/info - A Affiche l'heure actuelle et le nom du PC");
+        message.put("endpoints", "/api/info - Affiche l'heure actuelle et le nom du PC");
         return message;
     }
 

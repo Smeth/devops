@@ -15,6 +15,20 @@ on:
     branches: [ "main" ]
 
 jobs:
+  connect-to-ec2:
+    name: Connect to EC2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run commands on EC2 via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            whoami
+            echo "Connexion OK"
   create-checkout:
 
     runs-on: ubuntu-latest
@@ -32,17 +46,3 @@ jobs:
     - name: Build with Maven
       run: mvn "-Dmaven.test.skip=true" -B package --file pom.xml
 
-  ssh-commands:
-      name: SSH Commands
-      runs-on: ubuntu-latest
-      steps:
-        - name: Run commands on EC2 via SSH
-          uses: appleboy/ssh-action@v1
-          with:
-            host: ${{ secrets.HOST }}
-            username: ubuntu
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: 22
-            script: |
-              whoami
-              echo "Connexion OK"
